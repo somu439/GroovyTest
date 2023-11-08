@@ -8,9 +8,16 @@ def updateJsonValueWithArrayIndex(String jsonString, String jp, newValue) {
     def slurper = new JsonSlurper()
     def json = slurper.parseText(jsonString)
     jsonPath= jp.replace('[','.').replace(']','')
+//    println jsonPath
     def ai= jsonString.split('\\[')[-1].replace(']','')
-    def ChkIndex = ai.isNumber()?x:null
-
+    print(ai)
+    boolean aiNumber=false
+    if (ai.isNumber()==true){
+//        println jsonPath.split('\\.',0,2)
+        aiNumber=true}
+    else {
+//        println jsonPath.split('\\.')
+        aiNumber=false}
 
     def pathParts = jsonPath.split('\\.')
 
@@ -27,8 +34,10 @@ def updateJsonValueWithArrayIndex(String jsonString, String jp, newValue) {
         } else if (i < pathParts.size() - 1 && currentNode[pathPart] != null) {
             currentNode = currentNode[pathPart]
         } else if (i == pathParts.size() - 1) {
-            if ChkIndex =
-            currentNode[pathPart][arrayIndex] = newValue
+            if (aiNumber){
+                currentNode[pathPart][ai] = newValue}
+            else{currentNode[pathPart] = newValue}
+
         } else {
             return "Path not found"
         }
@@ -61,11 +70,11 @@ def jsonString = '''
 '''
 
 // JSON path with array index and new value to update
-def jsonPath = "data.records[0].values[0].id" //data.records[0].values[0].val[1]
-def arrayIndex = null
+def jsonPath = "data.records[0].values[0].val[0]" //data.records[0].values[0].val[1]
+//def arrayIndex = null
 def newValue = 70
 
 // Update JSON value
-def updatedJson = updateJsonValueWithArrayIndex(jsonString, jsonPath, arrayIndex, newValue)
+def updatedJson = updateJsonValueWithArrayIndex(jsonString, jsonPath, newValue)
 println(updatedJson)
 // this is a test
