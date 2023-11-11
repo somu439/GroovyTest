@@ -7,4 +7,3 @@ new File(filePath).withWriter { writer ->
     writer.write(csvContent)
 }
 
-// Close the file
