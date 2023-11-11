@@ -61,3 +61,15 @@ def jsonValue3 = getJsonValue(jsonString, jsonPath3)
 println("Value at $jsonPath1 is: $jsonValue1")
 println("Value at $jsonPath2 is: $jsonValue2")
 println("Value at $jsonPath3 is: $jsonValue3")
+
+
+def csvContent = "$jsonValue1 : $jsonValue1\n$jsonValue2 : $jsonValue2\n$jsonValue3 : $jsonValue3\\n "
+
+def filePath = "C:\\Users\\Lakshmi\\IdeaProjects\\GroovyTest\\src\\main\\resources\\output\\example.csv"
+
+// Write to CSV file
+new File(filePath).withWriter { writer ->
+    writer.write(csvContent)
+    writer.close()
+}
+
