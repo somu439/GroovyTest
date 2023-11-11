@@ -1,3 +1,4 @@
+import org.apache.commons.math3.util.Precision
 import groovy.json.JsonSlurper
 
 // Function to get a JSON value based on a JSON path
@@ -58,11 +59,12 @@ def jsonValue1 = getJsonValue(jsonString, jsonPath1)
 def jsonValue2 = getJsonValue(jsonString, jsonPath2)
 def jsonValue3 = getJsonValue(jsonString, jsonPath3)
 
-println("Value at $jsonPath1 is: $jsonValue1")
-println("Value at $jsonPath2 is: $jsonValue2")
-println("Value at $jsonPath3 is: $jsonValue3")
+//println("Value at $jsonPath1 is: $jsonValue1")
+//println("Value at $jsonPath2 is: $jsonValue2")
+//println("Value at $jsonPath3 is: $jsonValue3")
 
 
+//write to CSV file
 def csvContent = "$jsonValue1 : $jsonValue1\n$jsonValue2 : $jsonValue2\n$jsonValue3 : $jsonValue3\\n "
 
 def filePath = "C:\\Users\\Lakshmi\\IdeaProjects\\GroovyTest\\src\\main\\resources\\output\\example.csv"
@@ -73,3 +75,15 @@ new File(filePath).withWriter { writer ->
     writer.close()
 }
 
+// Fuzzy match
+
+
+def field1 = 12.345
+def field2 = 12.355
+def tolerance = 0.000133  // Adjust the tolerance as needed
+
+if (Precision.equalsWithRelativeTolerance(field1, field2, tolerance)) {
+    println "The decimal fields are fuzzy-matched within the specified tolerance."
+} else {
+    println "The decimal fields are not fuzzy-matched within the specified tolerance."
+}
