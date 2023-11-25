@@ -1,14 +1,16 @@
-@Grab('org.codehaus.groovy:groovy-json:3.0.0')
+//@Grab('org.codehaus.groovy:groovy-json:3.0.0')
 
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 
 // Function to update a JSON value based on a JSON path with array index
-def updateJsonValueWithArrayIndex(String jsonString, String jsonPath, arrayIndex, newValue) {
+def updateJsonValueWithArrayIndex(String jsonString, String jsonPathAndIndex, newValue) {
     def slurper = new JsonSlurper()
     def json = slurper.parseText(jsonString)
 
-    def pathParts = jsonPath.split('\\.')
+    def pathAndIndexParts = jsonPathAndIndex.split('\\.')
+    def pathParts = pathAndIndexParts.take(pathAndIndexParts.size() - 1) // Extract path parts
+    def arrayIndex = pathAndIndexParts.last().toInteger() // Extract array index
 
     def currentNode = json
     for (int i = 0; i < pathParts.size(); i++) {
@@ -52,10 +54,9 @@ def jsonString = '''
 '''
 
 // JSON path with array index and new value to update
-def jsonPath = "data.records.1.values"
-def arrayIndex = 2
+def jsonPathAndIndex = "data.records.1.values.2"
 def newValue = 70
 
 // Update JSON value
-def updatedJson = updateJsonValueWithArrayIndex(jsonString, jsonPath, arrayIndex, newValue)
+def updatedJson = updateJsonValueWithArrayIndex(jsonString, jsonPathAndIndex, newValue)
 println(updatedJson)
