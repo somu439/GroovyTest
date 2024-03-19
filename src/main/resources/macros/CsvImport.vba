@@ -45,7 +45,7 @@ Sub ImportCSVData()
     
 End Sub
 
-Sub ImportCsvSingleQuote()
+Sub Button1_Click()
     Dim wsheet As Worksheet
     Dim file_mrf As String
     Dim lastRow As Long
@@ -59,8 +59,26 @@ Sub ImportCsvSingleQuote()
     ' Find the last row in the worksheet
     lastRow = wsheet.Cells(wsheet.Rows.Count, 1).End(xlUp).Row + 1
     
-    ' Import data from CSV file with comma delimiter and append it to the last row
-    With wsheet.QueryTables.Add(Connection:="TEXT;" & file_mrf, Destination:=wsheet.Cells(lastRow, 1))
+    ' Remove the first row from the CSV file
+    Dim tempFile As String
+    tempFile = Environ("TEMP") & "\temp.csv"
+    
+    Open file_mrf For Input As #1
+    Open tempFile For Output As #2
+    
+    ' Skip the first row
+    Line Input #1, dummy
+    
+    Do Until EOF(1)
+        Line Input #1, dataLine
+        Print #2, dataLine
+    Loop
+    
+    Close #1
+    Close #2
+    
+    ' Import data from modified CSV file with comma delimiter and append it to the last row, starting from 2nd row
+    With wsheet.QueryTables.Add(Connection:="TEXT;" & tempFile, Destination:=wsheet.Cells(lastRow, 1))
         .TextFileParseType = xlDelimited
         .TextFileOtherDelimiter = ","
         .TextFileConsecutiveDelimiter = False
@@ -70,8 +88,14 @@ Sub ImportCsvSingleQuote()
         
         ' Format specific columns as text if needed (e.g., column 2)
         wsheet.Columns(2).NumberFormat = "@"
-        .TextFileTextQualifier = xlTextQualifierSingleQuote
+        
+        ' Add single quote as text qualifier
+       ' .TextFileTextQualifier = xlTextQualifierSingleQuote
+        
         .TextFilePlatform = xlWindows
         .Refresh
     End With
+    
+    ' Delete temporary file
+    Kill tempFile
 End Sub
