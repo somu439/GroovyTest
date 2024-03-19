@@ -44,3 +44,34 @@ Sub ImportCSVData()
     Application.DisplayAlerts = True
     
 End Sub
+
+Sub ImportCsvSingleQuote()
+    Dim wsheet As Worksheet
+    Dim file_mrf As String
+    Dim lastRow As Long
+    
+    ' Set the worksheet where you want to append the data
+    Set wsheet = ThisWorkbook.Sheets("Sheet1")
+    
+    ' Prompt user to select the CSV file
+    file_mrf = Application.GetOpenFilename("Text Files (*.csv),*.csv", , "Select CSV File with Pipe Delimiter")
+    
+    ' Find the last row in the worksheet
+    lastRow = wsheet.Cells(wsheet.Rows.Count, 1).End(xlUp).Row + 1
+    
+    ' Import data from CSV file with comma delimiter and append it to the last row
+    With wsheet.QueryTables.Add(Connection:="TEXT;" & file_mrf, Destination:=wsheet.Cells(lastRow, 1))
+        .TextFileParseType = xlDelimited
+        .TextFileOtherDelimiter = ","
+        .TextFileConsecutiveDelimiter = False
+        
+        ' Preserve original number and date formats
+        .TextFileColumnDataTypes = Array(1) ' Set all columns as general format
+        
+        ' Format specific columns as text if needed (e.g., column 2)
+        wsheet.Columns(2).NumberFormat = "@"
+        .TextFileTextQualifier = xlTextQualifierSingleQuote
+        .TextFilePlatform = xlWindows
+        .Refresh
+    End With
+End Sub
