@@ -44,7 +44,8 @@ Sub ImportCSVData()
     Application.DisplayAlerts = True
     
 End Sub
-Sub Button1_Click12()
+'working one
+Sub Button1_Click()
     Dim wsheet As Worksheet
     Dim file_mrf As String
     Dim lastRow As Long
@@ -68,4 +69,48 @@ Sub Button1_Click12()
         .TextFilePlatform = xlWindows
         .Refresh
     End With
+End Sub
+' msgbox
+Sub Button1_Click12()
+    Dim wsheet As Worksheet
+    Dim file_mrf As String
+    Dim lastRow As Long
+    Dim userResponse As VbMsgBoxResult
+    
+    ' Set the worksheet where you want to append the data
+    Set wsheet = ThisWorkbook.Sheets("Sheet1")
+    
+    ' Prompt user to select the CSV file
+    file_mrf = Application.GetOpenFilename("Text Files (*.csv),*.csv", , "Select CSV File with Pipe Delimiter")
+    
+    ' Check if the user selected a file
+    If file_mrf = "False" Then
+        MsgBox "No file selected. Operation canceled.", vbExclamation
+        Exit Sub
+    End If
+    
+    ' Ask user for confirmation before importing data
+    userResponse = MsgBox("Do you want to import data from the selected CSV file?", vbYesNoCancel)
+    
+    If userResponse = vbYes Then
+        ' Find the last row in the worksheet
+        lastRow = wsheet.Cells(wsheet.Rows.Count, 1).End(xlUp).Row + 1
+        
+        ' Import data from CSV file with pipe delimiter, text format, and double quotes qualifiers
+        With wsheet.QueryTables.Add(Connection:="TEXT;" & file_mrf, Destination:=wsheet.Cells(lastRow, 1))
+            .TextFileParseType = xlDelimited
+            .TextFileOtherDelimiter = ","
+            .TextFileConsecutiveDelimiter = False
+            .TextFileColumnDataTypes = Array(2) ' Set all columns as text format
+            .TextFilePlatform = xlWindows
+            .Refresh
+        End With
+        
+        MsgBox "Data imported successfully.", vbInformation
+    ElseIf userResponse = vbNo Then
+        MsgBox "Operation canceled by user.", vbInformation
+    Else ' User clicked Cancel or closed the dialog box
+        MsgBox "Operation canceled.", vbInformation
+    End If
+
 End Sub
