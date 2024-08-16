@@ -46,3 +46,39 @@ Next col
 MsgBox "Done", vbOKCancel
 
 End Sub
+
+
+Sub SaveAsPipeDelimitedCSV()
+    ' Define the file path and name
+    Dim filePath As String
+    Dim fileName As String
+    Dim textFileContent As String
+    Dim fileNumber As Integer
+
+    ' Modify the path and name as needed
+    filePath = "C:\Path\To\Your\File\"
+    fileName = "YourFileName.txt"
+
+    ' Loop through each cell in the active sheet
+    For Each row In ActiveSheet.UsedRange.Rows
+        For Each cell In row.Cells
+            ' Concatenate cell values with pipe delimiter
+            textFileContent = textFileContent & cell.Value & "|"
+        Next cell
+        ' Add a line break after each row
+        textFileContent = textFileContent & vbCrLf
+    Next row
+
+    ' Remove the trailing pipe in each row
+    textFileContent = Replace(textFileContent, "|", vbCrLf)
+
+    ' Create a text file and write the content
+    fileNumber = FreeFile
+    Open filePath & fileName For Output As fileNumber
+    Print #fileNumber, textFileContent
+    Close fileNumber
+
+    ' Display a confirmation message (you can modify this part as needed)
+    MsgBox "File saved as " & filePath & fileName, vbInformation
+
+End Sub
