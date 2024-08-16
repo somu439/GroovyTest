@@ -1,7 +1,7 @@
 import groovy.json.JsonSlurper
 
-def inputFile = new File('D:\\Sreeni\\Discover\\test.json')
-def outputFile = new File('D:\\Sreeni\\Discover\\test.csv')
+def inputFile = new File('test.json')
+def outputFile = new File('test.csv')
 
 def jsonSlurper = new JsonSlurper()
 def data = jsonSlurper.parse(inputFile)
@@ -24,5 +24,4 @@ outputFile.withWriter { writer ->
         writer.writeLine("${info.id},${name},${info.address},${info.phone}")
     }
 }
-
 println 'CSV file created successfully.'
