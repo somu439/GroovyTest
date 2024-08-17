@@ -24,4 +24,4 @@ outputFile.withWriter { writer ->
         writer.writeLine("${info.id},${name},${info.address},${info.phone}")
     }
 }
-println 'CSV file created successfully.'
+println 'CSV file created successfully. '
