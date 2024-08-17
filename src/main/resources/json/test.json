@@ -1,0 +1,77 @@
+[
+   {
+      "id":1,
+      "name":"John Doem",
+      "address":"123 Main St, Chicago, IL",
+      "others":{
+
+      },
+      "phone":"555-1234"
+   },
+   {
+      "id":2,
+      "name":"Jane Smith",
+      "address":"456 Oak Ave, New York, NY",
+      "others":{
+         "internal":[
+            {
+               "internal_sub1":{
+                  "subid1":"this is sub1 id1",
+                  "subid2":"This is sub1 id2"
+               },
+               "internal_sub2":{
+                  "subid1":"this is sub2 id1",
+                  "subid2":"This is sub2 id2"
+               }
+            }
+         ],
+         "external":[
+            {
+               "external_sub1":{
+                  "ext_subid1":"this is sub1 id1",
+                  "ext_subid2":"This is sub1 id2"
+               },
+               "internal_sub2":{
+                  "subid1":"this is sub2 id1",
+                  "subid2":"This is sub2 id2"
+               }
+            }
+         ]
+      },
+      "phone":"555-5678"
+   },
+   {
+      "id":3,
+      "name":"John Doe",
+      "address":"789 Pine Rd, Los Angeles, CA",
+      "phone":"555-9012"
+   },
+   {
+      "id":4,
+      "name":"Emily Davis",
+      "address":"321 Maple Blvd, Houston, TX",
+      "others":{
+         "external":[
+            {
+               "external_sub1":{
+                  "ext_subid1":"this is sub1 id1",
+                  "ext_subid2":"This is sub1 id2"
+               }
+            }
+         ]
+      },
+      "phone":"555-3456"
+   },
+   {
+      "id":5,
+      "name":"Linda White",
+      "address":"654 Cedar Ln, Miami, FL",
+      "phone":"555-7890"
+   },
+   {
+      "id":6,
+      "name":"Linda White",
+      "address":"987 Birch St, Seattle, WA",
+      "phone":"555-2345"
+   }
+]
