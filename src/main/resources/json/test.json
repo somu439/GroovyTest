@@ -2,7 +2,7 @@
    {
       "id":1,
       "name":"John Doem",
-      "address":"123 Main St, Chicago, IL",
+      "address":"123 Main St Chicago IL",
       "others":{
 
       },
@@ -11,7 +11,7 @@
    {
       "id":2,
       "name":"Jane Smith",
-      "address":"456 Oak Ave, New York, NY",
+      "address":"456 Oak Ave New York NY",
       "others":{
          "internal":[
             {
@@ -43,13 +43,13 @@
    {
       "id":3,
       "name":"John Doe",
-      "address":"789 Pine Rd, Los Angeles, CA",
+      "address":"789 Pine Rd Los Angeles CA",
       "phone":"555-9012"
    },
    {
       "id":4,
       "name":"Emily Davis",
-      "address":"321 Maple Blvd, Houston, TX",
+      "address":"321 Maple Blvd Houston TX",
       "others":{
          "external":[
             {
@@ -65,13 +65,13 @@
    {
       "id":5,
       "name":"Linda White",
-      "address":"654 Cedar Ln, Miami, FL",
+      "address":"654 Cedar Ln Miami FL",
       "phone":"555-7890"
    },
    {
       "id":6,
       "name":"Linda White",
-      "address":"987 Birch St, Seattle, WA",
+      "address":"987 Birch St Seattle WA",
       "phone":"555-2345"
    }
 ]
