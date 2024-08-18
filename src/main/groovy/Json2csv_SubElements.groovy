@@ -1,5 +1,4 @@
 import groovy.json.JsonSlurper
-import groovy.json.JsonOutput
 
 def inputFile = new File('C:\\Users\\Lakshmi\\IdeaProjects\\GroovyTest\\src\\main\\resources\\json\\test.json')
 def outputFile = new File('C:\\Users\\Lakshmi\\IdeaProjects\\GroovyTest\\src\\main\\resources\\json\\test.csv')
@@ -25,16 +24,12 @@ outputFile.withWriter { writer ->
 
         // Format 'Internal' block
         def internal = entry.others?.internal?.collect { internalBlock ->
-            "internal[${internalBlock.collect { key, value ->
-                "${key}:${value}"
-            }.join(';')}]"
+            "internal[${internalBlock.collect { key, value -> "${key}:${value}"}.join(';')}]"
         }?.join(';') ?: ''
 
         // Format 'External' block
         def external = entry.others?.external?.collect { externalBlock ->
-            "[${externalBlock.collect { key, value ->
-                "${key}:${value}"
-            }.join(';')}]"
+            "[${externalBlock.collect { key, value ->"${key}:${value}"}.join(';')}]"
         }?.join(';') ?: ''
 
         // Replace commas with pipe symbols in 'Internal' and 'External'
