@@ -29,7 +29,11 @@
             {
                "external_sub1":{
                   "ext_subid1":"this is sub1 id1",
-                  "ext_subid2":"This is sub1 id2"
+                  "ext_subid2":"This is sub1 id2",
+				  "ext1":{
+					  "ext1_sub1":"this is ext sub",
+					  "ext1_sub2":"this is ext sub1"
+				  }
                },
                "internal_sub2":{
                   "subid1":"this is sub2 id1",
@@ -55,7 +59,12 @@
             {
                "external_sub1":{
                   "ext_subid1":"this is sub1 id1",
-                  "ext_subid2":"This is sub1 id2"
+                  "ext_subid2":"This is sub1 id2",
+				  "ext1":{
+					  "ext1_detail1":"this is ext detail1",
+					  "ext1_detail2":"this is ext detail2"
+				  },
+				  "ext_subid3":"This is sub1 id3" 
                }
             }
          ]

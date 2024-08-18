@@ -22,19 +22,20 @@ outputFile.withWriter { writer ->
         def address = entry.address
         def phone = entry.phone
 
-        // Format 'Internal' block
-        def internal = entry.others?.internal?.collect { internalBlock ->
-            "internal[${internalBlock.collect { key, value -> "${key}:${value}"}.join(';')}]"
-        }?.join(';') ?: ''
+        // Format 'Internal' block (if needed, otherwise leave empty)
+        def internal = ''
 
-        // Format 'External' block
+        // Format 'External' block to include only specific fields
         def external = entry.others?.external?.collect { externalBlock ->
-            "[${externalBlock.collect { key, value ->"${key}:${value}"}.join(';')}]"
-        }?.join(';') ?: ''
-
-        // Replace commas with pipe symbols in 'Internal' and 'External'
-        internal = internal.replace(',', '|')
-        external = external.replace(',', '|')
+            externalBlock.collect { key, value ->
+                if (key == "external_sub1" && value instanceof Map) {
+                    def subFields = value.findAll { subKey, _ ->
+                        subKey in ["ext1", "ext_subid1", "ext1_detail1", "ext1_detail2"]
+                    }
+                    "${key}:[${subFields.collect { subKey, subValue -> "${ }:${subValue}" }.join('|')}]"
+                }
+            }.findAll { it != null }.join('|')
+        }?.join('|') ?: ''
 
         // Write the CSV line
         writer.writeLine([id, name, address, phone, internal, external].join(','))
