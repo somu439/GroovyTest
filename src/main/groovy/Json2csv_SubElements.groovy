@@ -30,9 +30,9 @@ outputFile.withWriter { writer ->
             externalBlock.collect { key, value ->
                 if (key == "external_sub1" && value instanceof Map) {
                     def subFields = value.findAll { subKey, _ ->
-                        subKey in ["ext1", "ext_subid1", "ext1_detail1", "ext1_detail2"]
+                        subKey in ["ext_subid1", "ext_subid2", "ext1_detail1", "ext1_detail2", "ext2_detail1", "ext2_detail2", "sub_ext1_sub3"]
                     }
-                    "${key}:[${subFields.collect { subKey, subValue -> "${ }:${subValue}" }.join('|')}]"
+                    subFields.collect { subKey, subValue -> "${subKey}=${subValue}" }.join('|')
                 }
             }.findAll { it != null }.join('|')
         }?.join('|') ?: ''
