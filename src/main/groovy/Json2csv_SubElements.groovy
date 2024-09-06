@@ -1,7 +1,7 @@
 import groovy.json.JsonSlurper
 
-def inputFile = new File('src/main/resources/json/test.json')
-def outputFile = new File('src/main/resources/json/test_result.csv')
+def inputFile = new File('../resources/json/test.json')
+def outputFile = new File('../resources/json/test_result.csv')
 
 // Load and parse the JSON file
 def jsonSlurper = new JsonSlurper()

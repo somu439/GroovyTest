@@ -1,0 +1,7 @@
+ID,Level1_Name,Address,Phone,Level2_ext_subid1,Level3_ext_subid1,ext1_detail1,ext1_detail2
+1,JohnDoem,123 Main St Chicago IL,555-1234,,,,
+2,JaneSmith,456 Oak Ave New York NY,555-5678,EmilyDavis,LindaWhite,,
+3,JohnDoe,789 Pine Rd Los Angeles CA,555-9012,,,,
+4,EmilyDavis,321 Maple Blvd Houston TX,555-3456,LindaWhite,,this is ext detail1,this is ext detail2
+5,LindaWhite,654 Cedar Ln Miami FL,555-7890,,,,
+6,LindaWhite,987 Birch St Seattle WA,555-2345,,,,
