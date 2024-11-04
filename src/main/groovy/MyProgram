@@ -1,0 +1,54 @@
+package iws
+
+class MyProgram {
+    static void main(String[] args) {
+        println "Hello, World!"
+
+// Load properties from file
+        def props = new Properties()
+        File propsFile = new File("config.properties")
+        props.load(new FileInputStream(propsFile))
+
+// Extract values from properties
+        String requestFileName = props.getProperty("requestJsonFileName")
+        String url = props.getProperty("url")
+        String jobStatus = props.getProperty("jobStatus")
+        int timeout = Integer.parseInt(props.getProperty("timeout"))
+        String header1 = props.getProperty("header1")
+        String header2 = props.getProperty("header2")
+        String header3 = props.getProperty("header3")
+
+
+// Read the request JSON from file
+        File requestFile = new File(requestFileName)
+        String requestBody = requestFile.text
+
+// Send HTTP POST request
+        def connection = new URL(url).openConnection()
+        connection.setRequestMethod("POST")
+        connection.setRequestProperty("Content-Type", "application/json")
+//connection.setRequestProperty("header1", header1)
+//connection.setRequestProperty("header2", header2)
+//connection.setRequestProperty("header3", header3)
+        connection.setConnectTimeout(timeout)
+        connection.setReadTimeout(timeout)
+        connection.doOutput = true
+
+// Write the request body
+        connection.outputStream.withWriter { writer ->
+            writer << requestBody
+        }
+
+// Read the response
+        def responseCode = connection.responseCode
+        String responseBody = connection.inputStream.withReader { it.text }
+
+// Save the response to a new file with "_resp.json" suffix
+        String responseFileName = requestFileName.replace(".json", "_resp.json")
+        File responseFile = new File(responseFileName)
+        responseFile.write(responseBody)
+
+        println "Response saved to: ${responseFileName}"
+
+    }
+}
